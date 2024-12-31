@@ -1,3 +1,7 @@
 {
-  "cmake.sourceDirectory": "C:/Atlas/AtlasEngine/Engine"
+  "cmake.sourceDirectory": "C:/Atlas/AtlasEngine/Engine",
+  "files.associations": {
+    "*.embeddedhtml": "html",
+    "iostream": "cpp"
+  }
 }
