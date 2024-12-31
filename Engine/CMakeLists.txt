@@ -20,16 +20,16 @@ if(WIN32)
     # Windows-specific GLFW paths
     set(GLFW_INCLUDE_DIR "C:/Users/Hagen/Documents/Visual Studio 2022/Libraries/glfw-3.4.bin.WIN64/include")
     set(GLFW_LIBRARY_DIR "C:/Users/Hagen/Documents/Visual Studio 2022/Libraries/glfw-3.4.bin.WIN64/lib-vc2022")
+
+    include_directories(${GLFW_INCLUDE_DIR})
+    link_directories(${GLFW_LIBRARY_DIR})
+    target_link_libraries(MyVulkanEngine PRIVATE glfw3.lib)
+
 elseif(UNIX)
-    # Linux-specific GLFW paths
+    # Use system-installed GLFW on Linux
     find_package(glfw3 REQUIRED)
+    target_link_libraries(MyVulkanEngine PRIVATE glfw)
 endif()
-
-# Include GLFW headers
-include_directories(${GLFW_INCLUDE_DIR})
-
-# Link GLFW library using full path
-target_link_libraries(MyVulkanEngine PRIVATE "${GLFW_LIBRARY_DIR}/glfw3.lib")
 
 # Include directories
 target_include_directories(MyVulkanEngine PRIVATE src)
