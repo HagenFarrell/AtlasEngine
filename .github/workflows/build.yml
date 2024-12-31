@@ -1,0 +1,29 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main    # Run the workflow when pushing to the `main` branch
+  pull_request:  # Run the workflow on pull requests
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use a Linux-based VM for testing
+
+    steps:
+    # Step 1: Check out the code
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up dependencies (e.g., CMake, Vulkan SDK)
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake ninja-build gcc g++ libglfw3-dev
+
+    # Step 3: Configure and Build
+    - name: Configure with CMake
+      run: cmake -S . -B build -G "Ninja"
+
+    - name: Build with Ninja
+      run: cmake --build build
