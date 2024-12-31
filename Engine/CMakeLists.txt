@@ -16,13 +16,14 @@ add_executable(MyVulkanEngine ${ENGINE_SOURCES} ${ENGINE_HEADERS})
 find_package(Vulkan REQUIRED)
 target_link_libraries(MyVulkanEngine PRIVATE Vulkan::Vulkan)
 
-# GLFW paths
-set(GLFW_INCLUDE_DIR "C:/Users/Hagen/Documents/Visual Studio 2022/Libraries/glfw-3.4.bin.WIN64/include")
-set(GLFW_LIBRARY_DIR "C:/Users/Hagen/Documents/Visual Studio 2022/Libraries/glfw-3.4.bin.WIN64/lib-vc2022")
-
-# Debug GLFW paths
-message(STATUS "GLFW_INCLUDE_DIR: ${GLFW_INCLUDE_DIR}")
-message(STATUS "GLFW_LIBRARY_DIR: ${GLFW_LIBRARY_DIR}")
+if(WIN32)
+    # Windows-specific GLFW paths
+    set(GLFW_INCLUDE_DIR "C:/Users/Hagen/Documents/Visual Studio 2022/Libraries/glfw-3.4.bin.WIN64/include")
+    set(GLFW_LIBRARY_DIR "C:/Users/Hagen/Documents/Visual Studio 2022/Libraries/glfw-3.4.bin.WIN64/lib-vc2022")
+elseif(UNIX)
+    # Linux-specific GLFW paths
+    find_package(glfw3 REQUIRED)
+endif()
 
 # Include GLFW headers
 include_directories(${GLFW_INCLUDE_DIR})
