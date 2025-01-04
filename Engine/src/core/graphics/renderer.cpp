@@ -131,7 +131,7 @@ void Renderer::pickPhysicalDevice()
 
 }
 
-bool ratePhysicalDevice(VkPhysicalDevice device)
+int ratePhysicalDevice(VkPhysicalDevice device)
 {
   VkPhysicalDeviceProperties deviceProperties;
   VkPhysicalDeviceFeatures deviceFeatures;
@@ -140,8 +140,18 @@ bool ratePhysicalDevice(VkPhysicalDevice device)
   vkGetPhysicalDeviceProperties(device, &deviceProperties);
   vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 
-  return deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU
-   && deviceFeatures.geometryShader;
+  int score = 0;
+
+  // Discrete GPUs carry a massive performance advantage, thus they gain a higher score.
+  if(deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+    score += 1000;
+
+  // maxImageDimensions is simply the max texture size, the better the GPU the higher this limit will be. Increasing score.
+  score += deviceProperties.limits.maxImageDimension2D;
+
+  if(!deviceFeatures.geometryShader) return 0;
+
+  return score;
 }
 
 void Renderer::createLogicalDevice()
