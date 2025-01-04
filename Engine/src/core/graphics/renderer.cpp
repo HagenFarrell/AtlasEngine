@@ -97,6 +97,30 @@ void Renderer::createInstance()
   std::cout << "Vulkan instance created." << std::endl;
 }
 
+int ratePhysicalDevice(VkPhysicalDevice device)
+{
+  VkPhysicalDeviceProperties deviceProperties;
+  VkPhysicalDeviceFeatures deviceFeatures;
+
+  // Does exactly what it looks like it does hehe
+  vkGetPhysicalDeviceProperties(device, &deviceProperties);
+  vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+  int score = 0;
+
+  // Discrete GPUs carry a massive performance advantage, thus they gain a higher score.
+  if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+    score += 1000;
+
+  // maxImageDimensions is simply the max texture size, the better the GPU the higher this limit will be. Increasing score.
+  score += deviceProperties.limits.maxImageDimension2D;
+
+  if (!deviceFeatures.geometryShader)
+    return 0;
+
+  return score;
+}
+
 void Renderer::pickPhysicalDevice()
 {
   VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
@@ -108,7 +132,6 @@ void Renderer::pickPhysicalDevice()
   if (deviceCount == 0)
     throw std::runtime_error("failed to find GPUs with Vulkan support!");
 
-  
   std::vector<VkPhysicalDevice> devices(deviceCount);
   vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
 
@@ -122,36 +145,14 @@ void Renderer::pickPhysicalDevice()
 
   // Uses iterator to go through and find positive scores (valid scores)
   // Then selects the most powerful graphics unit available.
-  if(canidates.rbegin()->first > 0)
+  if (canidates.rbegin()->first > 0)
   {
     physicalDevice = canidates.rbegin()->second;
-  } else {
+  }
+  else
+  {
     throw std::runtime_error("failed to find a suitable GPU!");
   }
-
-}
-
-int ratePhysicalDevice(VkPhysicalDevice device)
-{
-  VkPhysicalDeviceProperties deviceProperties;
-  VkPhysicalDeviceFeatures deviceFeatures;
-
-  // Does exactly what it looks like it does hehe
-  vkGetPhysicalDeviceProperties(device, &deviceProperties);
-  vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
-
-  int score = 0;
-
-  // Discrete GPUs carry a massive performance advantage, thus they gain a higher score.
-  if(deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
-    score += 1000;
-
-  // maxImageDimensions is simply the max texture size, the better the GPU the higher this limit will be. Increasing score.
-  score += deviceProperties.limits.maxImageDimension2D;
-
-  if(!deviceFeatures.geometryShader) return 0;
-
-  return score;
 }
 
 void Renderer::createLogicalDevice()
