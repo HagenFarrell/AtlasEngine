@@ -6,6 +6,7 @@
 class Renderer
 {
   public:
+
     Renderer();
     ~Renderer();
 
@@ -13,11 +14,11 @@ class Renderer
     void cleanup();
 
     void renderFrame();
-    void isInitialized() const;
+    bool isInitialized() const;
 
   private:
-    // Helper functions
 
+    // Helper functions
     void createInstance();
     void pickPhysicalDevice();
     void createLogicalDevice();

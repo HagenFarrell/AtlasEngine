@@ -3,4 +3,5 @@ C:\Atlas\AtlasEngine\Engine\src\core\VulkanCore.cpp;C:\Atlas\AtlasEngine\Engine\
 C:\Atlas\AtlasEngine\Engine\src\core\graphics\renderer.cpp;C:\Atlas\AtlasEngine\Engine\build\MyVulkanEngine.dir\Debug\renderer.obj
 C:\Atlas\AtlasEngine\Engine\src\core\input\InputManager.cpp;C:\Atlas\AtlasEngine\Engine\build\MyVulkanEngine.dir\Debug\InputManager.obj
 C:\Atlas\AtlasEngine\Engine\src\core\math\math.cpp;C:\Atlas\AtlasEngine\Engine\build\MyVulkanEngine.dir\Debug\math.obj
+C:\Atlas\AtlasEngine\Engine\src\core\scene\scene.cpp;C:\Atlas\AtlasEngine\Engine\build\MyVulkanEngine.dir\Debug\scene.obj
 C:\Atlas\AtlasEngine\Engine\src\main.cpp;C:\Atlas\AtlasEngine\Engine\build\MyVulkanEngine.dir\Debug\main.obj

@@ -345,10 +345,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Atlas\AtlasEngine\Engine\src\core\graphics\renderer.cpp" />
     <ClCompile Include="C:\Atlas\AtlasEngine\Engine\src\core\input\InputManager.cpp" />
     <ClCompile Include="C:\Atlas\AtlasEngine\Engine\src\core\math\math.cpp" />
+    <ClCompile Include="C:\Atlas\AtlasEngine\Engine\src\core\scene\scene.cpp" />
     <ClCompile Include="C:\Atlas\AtlasEngine\Engine\src\main.cpp" />
     <ClInclude Include="C:\Atlas\AtlasEngine\Engine\src\core\Engine.h" />
     <ClInclude Include="C:\Atlas\AtlasEngine\Engine\src\core\VulkanCore.h" />
     <ClInclude Include="C:\Atlas\AtlasEngine\Engine\src\core\graphics\renderer.h" />
+    <ClInclude Include="C:\Atlas\AtlasEngine\Engine\src\core\input\InputManager.h" />
+    <ClInclude Include="C:\Atlas\AtlasEngine\Engine\src\core\scene\scene.h" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
